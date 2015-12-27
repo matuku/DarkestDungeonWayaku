@@ -10,6 +10,7 @@
 			</style>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 			<script src="./lib/convertXml.js"></script>
+			<script src="./lib/convertFont.js"></script>
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 				integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
@@ -46,13 +47,13 @@
 			// 	$(".log").html(msg + "<br>" + tmpLog);
 			// }
 
-			function dispAlert(msg) {
+			function dispAlert(msg,target) {
 				if(msg != ""){
-					$("#alertDiv").show();
-					$("#alertMsg").text(msg);					
+					$("#alertDiv" + target).show();
+					$("#alertMsg" + target).text(msg);					
 				}else{
-					$("#alertDiv").hide();
-					$("#alertMsg").text("");					
+					$("#alertDiv" + target).hide();
+					$("#alertMsg" + target).text("");					
 				}
 			}
 
@@ -61,18 +62,18 @@
 				var steamFolder = $("#steamDir").val();
 				steamFolder = steamFolder.replace(/\\/g,'/');
 				if(steamFolder == ""){
-					dispAlert("DarkestDungeon インストールフォルダを指定してください");
+					dispAlert("DarkestDungeon インストールフォルダを指定してください","Xml");
 					return;
 				}else{
-					dispAlert("");
+					dispAlert("","Xml");
 				}
 				var resultFolder = $("#resultDir").val();
 				resultFolder = resultFolder.replace(/\\/g,'/');
 				if(resultFolder == ""){
-					dispAlert("XMLファイル出力フォルダを指定してください");
+					dispAlert("XMLファイル出力フォルダを指定してください","Xml");
 					return;	
 				}else{
-					dispAlert("");
+					dispAlert("","Xml");
 				}
 
 				getGssData("対応表",setData);
@@ -97,17 +98,38 @@
 				replaceXml("miscellaneous.string_table",dataArray["miscellaneous.string_table"],dataArray["対応表"],steamFolder,resultFolder);
 			 }
 
-			function execFontConv(orgFontFileName){
+			function execFontConv(){
+
+				var orgFontFileName = $("#fontFile").val();
+				orgFontFileName = orgFontFileName.replace(/\\/g,'/');
+
+				if(orgFontFileName == ""){
+					dispAlert("fontsファイルが設定されていることを確認してください","Fonts");
+					return;
+				}
+
+
 				exec('ttx -t cmap '+ orgFontFileName, function(err, stdoutTxt, stderrTxt){
-					dispLog('ttx -t cmap '+ orgFontFileName);
-					dispLog(stdoutTxt+stderrTxt);
+
+					if(err !== null){
+						dispAlert("TTXがインストールされ環境変数が設定済みであることを確認してください","Fonts");
+						console.log(err);
+						return;
+					}
+
+					getGssData("対応表",setData);
+
 					var orgTtxName = orgFontFileName.replace(/\.ttf/i, '.ttx');
-					var newTtxName = replaceCmap(orgTtxName);
+					var newTtxName = replaceCmap(orgTtxName,dataArray["対応表"]);
+
 					exec('ttx -m '+ orgFontFileName + ' ' + newTtxName, function(err, stdoutTxt, stderrTxt){
-						dispLog('ttx -m '+ orgFontFileName + ' ' + newTtxName);
-						dispLog(stdoutTxt+stderrTxt);
+						console.log('ttx -m '+ orgFontFileName + ' ' + newTtxName);
+						console.log(stdoutTxt+stderrTxt);
 					});
+
+
 				});
+
 			}
 
 			</script>
@@ -165,10 +187,10 @@
 				</div>
 			</div>
 
-			<div class="alert alert-danger" role="alert" id="alertDiv" style="display:none">
+			<div class="alert alert-danger" role="alert" id="alertDivXml" style="display:none">
 				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 				<span class="sr-only">Error:</span>
-				<span id="alertMsg"></span>
+				<span id="alertMsgXml"></span>
 			</div>
 
 			<div class="panel panel-default">
@@ -251,10 +273,29 @@
 		</div>
 	</div>
 	<div class="row tabCtl" id="fonts" style="display:none">
-		<br>	
-		<div class="jumbotron">
-		<h2>It is in development.</h2>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="form-group">
+					<p class="help-block">
+						<i class="fa fa-font"></i>
+						TTF fontsファイルを指定
+					</p>
+					<input type="file" id="fontFile"　accept=".ttf"/>
+				</div>
+				<div class="alert alert-danger" role="alert" id="alertDivFonts" style="display:none">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					<span class="sr-only">Error:</span>
+					<span id="alertMsgFonts"></span>
+				</div>
+				<button class="btn btn-primary" onclick="execFontConv();" id="btnXmlConv">
+					変換
+				</button>
+			</div>
 		</div>
+		<br>
+		<!--<div class="jumbotron">
+		<h2>It is in development.</h2>
+		</div>-->
 		</div>
 	</div>
 </body>

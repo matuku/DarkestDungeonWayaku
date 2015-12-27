@@ -3,7 +3,7 @@
 	"main": "index.html",
 	"window": {
 		"title": "Darkest Dungeon Wayaku",
-		"toolbar": false,
+		"toolbar": true,
 		"width": 1100,
     	"height": 550,	
 		"min_width": 1100,
