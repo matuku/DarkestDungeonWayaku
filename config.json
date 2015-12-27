@@ -16,5 +16,5 @@
     "miscellaneous.string_table" : "oqs457o"
   },
   "json_url" : "https://spreadsheets.google.com/feeds/cells/[key]/[worksheetId]/public/values?alt=json",
-  "version" : ""
+  "version" : "0.9.0.0"
 }
