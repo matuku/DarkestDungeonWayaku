@@ -1,0 +1,12 @@
+{
+	"name": "Darkest Dungeon Wayaku tool",
+	"main": "index.html",
+	"window": {
+		"title": "Darkest Dungeon Wayaku",
+		"toolbar": false,
+		"width": 1100,
+    	"height": 550,	
+		"min_width": 1100,
+    	"min_height": 550
+	}
+}

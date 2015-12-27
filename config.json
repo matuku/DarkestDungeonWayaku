@@ -1,0 +1,20 @@
+{
+  "steamFolder": "E:/SteamLibrary/steamapps/common/DarkestDungeon",
+  "key" : "1QuP833eJSERcQVba322ye1OfCt2l0lb2KWfqMpoYQDQ",
+  "worksheetId" : {
+    "対応表" : "od036qk",
+    "固有名詞表" : "onk0vdj",
+    "actor.string_table":"oz52s5y",
+    "curios.string_table" : "ovuya7f",
+    "activity_log.string_table" : "oaajae",
+    "dialogue.string_table":"od6",
+    "curios.string_table":"ovuya7f",
+    "help.string_table" : "oc2kpgl",
+    "quirks.string_table":"ou15sgv",
+    "heroes.string_table" :"og5p408",
+    "menu.string_table" : "oxs4lkm",
+    "miscellaneous.string_table" : "oqs457o"
+  },
+  "json_url" : "https://spreadsheets.google.com/feeds/cells/[key]/[worksheetId]/public/values?alt=json",
+  "version" : ""
+}
