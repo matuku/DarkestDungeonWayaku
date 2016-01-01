@@ -33,8 +33,7 @@ fonts内のファイルは Darkest Dungeon 日本語化作業 のファイルを
 ### Step 7 ) localization.batを実行する
 
 ## Quick Start Fonts 変換作業
-一部い機能を更新  
-実行前にTTXをインストールし、環境変数を設定してください  
+実行前にTTX・BMFontをインストールし、環境変数を設定してください  
 日本語化作業所の対応表を元にCMAPの置換が行われます   
 [TTX windows installer](http://sourceforge.net/projects/fonttools/files/2.0b1/)   
 [BMfont windows installer](http://www.angelcode.com/products/bmfont/)  
