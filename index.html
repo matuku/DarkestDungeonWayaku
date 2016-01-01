@@ -57,6 +57,10 @@
 				}
 			}
 
+			function chageBtnStatus(id,status){
+				$("#" + id).text(status);
+			}
+
 			function execXmlConv(){
 
 				var steamFolder = $("#steamDir").val();
@@ -75,6 +79,8 @@
 				}else{
 					dispAlert("","Xml");
 				}
+
+				chageBtnStatus("btnXmlConv","変換中");
 
 				getGssData("対応表",setData);
 				getGssData("curios.string_table",setData);
@@ -96,11 +102,33 @@
 				replaceXml("heroes.string_table",dataArray["heroes.string_table"],dataArray["対応表"],steamFolder,resultFolder);
 				replaceXml("menu.string_table",dataArray["menu.string_table"],dataArray["対応表"],steamFolder,resultFolder);
 				replaceXml("miscellaneous.string_table",dataArray["miscellaneous.string_table"],dataArray["対応表"],steamFolder,resultFolder);
+
 			 }
+
+			var fontName;
+			var newTtfName;
+			var orgFontFileName;
+			var tgaOutputDir;		
+
+			var setFontName = function(resultFontName){
+
+				fontName = resultFontName;
+
+				alert("「 " + fontName + " 」をインストールまたは置換してください。\r\nインストール後はインストール画面を閉じてください。");
+
+				exec(newTtfName, function(err, stdoutTxt, stderrTxt){
+					if(err !== null){
+						console.log(err);
+					}
+					createTGA(fontName,tgaOutputDir);
+				});
+
+				return;
+			}
 
 			function execFontConv(){
 
-				var orgFontFileName = $("#fontFile").val();
+				orgFontFileName = $("#fontFile").val();
 				orgFontFileName = orgFontFileName.replace(/\\/g,'/');
 
 				if(orgFontFileName == ""){
@@ -108,8 +136,17 @@
 					return;
 				}
 
+				tgaOutputDir = $("#tgaDir").val();
+				tgaOutputDir = tgaOutputDir.replace(/\\/g,'/');
+				
+				if(tgaOutputDir == ""){
+					dispAlert("TGA出力フォルダが設定されていることを確認してください","Fonts");
+					return;
+				}
 
-				exec('ttx -t cmap '+ orgFontFileName, function(err, stdoutTxt, stderrTxt){
+				chageBtnStatus("btnFontConv","変換中");
+
+				exec('ttx -t cmap -t name '+ orgFontFileName, function(err, stdoutTxt, stderrTxt){
 
 					if(err !== null){
 						dispAlert("TTXがインストールされ環境変数が設定済みであることを確認してください","Fonts");
@@ -123,10 +160,9 @@
 					var newTtxName = replaceCmap(orgTtxName,dataArray["対応表"]);
 
 					exec('ttx -m '+ orgFontFileName + ' ' + newTtxName, function(err, stdoutTxt, stderrTxt){
-						console.log('ttx -m '+ orgFontFileName + ' ' + newTtxName);
-						console.log(stdoutTxt+stderrTxt);
+						newTtfName = newTtxName.replace(/\.ttx/i, '.ttf');
+						getFontName(newTtxName,setFontName);
 					});
-
 
 				});
 
@@ -273,6 +309,7 @@
 		</div>
 	</div>
 	<div class="row tabCtl" id="fonts" style="display:none">
+		<BR>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="form-group">
@@ -282,12 +319,19 @@
 					</p>
 					<input type="file" id="fontFile"　accept=".ttf"/>
 				</div>
+				<div class="form-group">
+					<p class="help-block">
+						<i class="fa fa-download"></i>
+						TGA 出力フォルダを指定
+					</p>
+					<input type="file" id="tgaDir" webkitdirectory directory/>
+				</div>
 				<div class="alert alert-danger" role="alert" id="alertDivFonts" style="display:none">
 					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 					<span class="sr-only">Error:</span>
 					<span id="alertMsgFonts"></span>
 				</div>
-				<button class="btn btn-primary" onclick="execFontConv();" id="btnXmlConv">
+				<button class="btn btn-primary" onclick="execFontConv();" id="btnFontConv">
 					変換
 				</button>
 			</div>
