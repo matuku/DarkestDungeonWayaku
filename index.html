@@ -33,6 +33,8 @@
 					$(target).show();
 				})
 
+				getGssDataAll();
+
 			});
 
 			var cbUpdateCheck = function(str){
@@ -61,6 +63,36 @@
 				$("#" + id).text(status);
 			}
 
+			var dfGssData	= [];
+			function getGssDataAll(){
+				$("button").attr("disabled","disabled");
+				dfGssData["対応表"]							= new $.Deferred;
+				dfGssData["curios.string_table"]			= new $.Deferred;
+				dfGssData["actor.string_table"]				= new $.Deferred;
+				dfGssData["activity_log.string_table"]		= new $.Deferred;
+				dfGssData["dialogue.string_table"]			= new $.Deferred;
+				dfGssData["help.string_table"]				= new $.Deferred;
+				dfGssData["quirks.string_table"]			= new $.Deferred;
+				dfGssData["heroes.string_table"]			= new $.Deferred;
+				dfGssData["menu.string_table"]				= new $.Deferred;
+				dfGssData["miscellaneous.string_table"]		= new $.Deferred;
+				$.when(
+					getGssData("対応表",setData),
+					getGssData("curios.string_table",setData),
+					getGssData("actor.string_table",setData),
+					getGssData("activity_log.string_table",setData),
+					getGssData("dialogue.string_table",setData),
+					getGssData("help.string_table",setData),
+					getGssData("quirks.string_table",setData),
+					getGssData("heroes.string_table",setData),
+					getGssData("menu.string_table",setData),
+					getGssData("miscellaneous.string_table",setData)
+				).done(function(){
+					// console.log("data load finish");
+					$("button").removeAttr("disabled");
+				});
+			}
+
 			function execXmlConv(){
 
 				var steamFolder = $("#steamDir").val();
@@ -81,17 +113,6 @@
 				}
 
 				chageBtnStatus("btnXmlConv","変換中");
-
-				getGssData("対応表",setData);
-				getGssData("curios.string_table",setData);
-				getGssData("actor.string_table",setData);
-				getGssData("activity_log.string_table",setData);
-				getGssData("dialogue.string_table",setData);
-				getGssData("help.string_table",setData);
-				getGssData("quirks.string_table",setData);
-				getGssData("heroes.string_table",setData);
-				getGssData("menu.string_table",setData);
-				getGssData("miscellaneous.string_table",setData);
 
 				replaceXml("curios.string_table",dataArray["curios.string_table"],dataArray["対応表"],steamFolder,resultFolder);
 				replaceXml("actor.string_table",dataArray["actor.string_table"],dataArray["対応表"],steamFolder,resultFolder);
@@ -153,8 +174,6 @@
 						console.log(err);
 						return;
 					}
-
-					getGssData("対応表",setData);
 
 					var orgTtxName = orgFontFileName.replace(/\.ttf/i, '.ttx');
 					var newTtxName = replaceCmap(orgTtxName,dataArray["対応表"]);
