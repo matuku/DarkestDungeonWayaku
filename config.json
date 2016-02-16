@@ -13,8 +13,15 @@
     "quirks.string_table":"ou15sgv",
     "heroes.string_table" :"og5p408",
     "menu.string_table" : "oxs4lkm",
-    "miscellaneous.string_table" : "oqs457o"
+    "miscellaneous.string_table" : "oqs457o",
+
+    "backertrinkets.string_table" : "oz1kyw5",
+    "secret.string_table" : "oghqkg2",
+    "narration.string_table" : "onu1bqg",
+    "party_names.string_table" : "o5bos22",
+    "monsters.string_table" : "oeq3vav",
+    "journal.string_table" : "o8lsfd1"
   },
   "json_url" : "https://spreadsheets.google.com/feeds/cells/[key]/[worksheetId]/public/values?alt=json",
-  "version" : "1.2.0.0"
+  "version" : "1.3.0.0"
 }

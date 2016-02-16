@@ -76,6 +76,14 @@
 				dfGssData["heroes.string_table"]			= new $.Deferred;
 				dfGssData["menu.string_table"]				= new $.Deferred;
 				dfGssData["miscellaneous.string_table"]		= new $.Deferred;
+
+				dfGssData["backertrinkets.string_table"]		= new $.Deferred;
+				dfGssData["secret.string_table"]			= new $.Deferred;
+				dfGssData["narration.string_table"]			= new $.Deferred;
+				dfGssData["party_names.string_table"]		= new $.Deferred;
+				dfGssData["monsters.string_table"]			= new $.Deferred;
+				dfGssData["journal.string_table"]			= new $.Deferred;
+
 				$.when(
 					getGssData("対応表",setData),
 					getGssData("curios.string_table",setData),
@@ -86,7 +94,14 @@
 					getGssData("quirks.string_table",setData),
 					getGssData("heroes.string_table",setData),
 					getGssData("menu.string_table",setData),
-					getGssData("miscellaneous.string_table",setData)
+					getGssData("miscellaneous.string_table",setData),
+
+					getGssData("backertrinkets.string_table",setData),
+					getGssData("secret.string_table",setData),
+					getGssData("narration.string_table",setData),
+					getGssData("party_names.string_table",setData),
+					getGssData("monsters.string_table",setData),
+					getGssData("journal.string_table",setData)
 				).done(function(){
 					// console.log("data load finish");
 					$("button").removeAttr("disabled");
@@ -123,6 +138,13 @@
 				replaceXml("heroes.string_table",dataArray["heroes.string_table"],dataArray["対応表"],steamFolder,resultFolder);
 				replaceXml("menu.string_table",dataArray["menu.string_table"],dataArray["対応表"],steamFolder,resultFolder);
 				replaceXml("miscellaneous.string_table",dataArray["miscellaneous.string_table"],dataArray["対応表"],steamFolder,resultFolder);
+
+				replaceXml("backertrinkets.string_table",dataArray["backertrinkets.string_table"],dataArray["対応表"],steamFolder,resultFolder);
+				replaceXml("secret.string_table",dataArray["secret.string_table"],dataArray["対応表"],steamFolder,resultFolder);
+				replaceXml("narration.string_table",dataArray["narration.string_table"],dataArray["対応表"],steamFolder,resultFolder);
+				replaceXml("party_names.string_table",dataArray["party_names.string_table"],dataArray["対応表"],steamFolder,resultFolder);
+				replaceXml("monsters.string_table",dataArray["monsters.string_table"],dataArray["対応表"],steamFolder,resultFolder);
+				replaceXml("journal.string_table",dataArray["journal.string_table"],dataArray["対応表"],steamFolder,resultFolder);
 
 			 }
 
@@ -320,6 +342,42 @@
 					<h4>miscellaneous</h4>
 					<div class="progress">
 						<div id="miscellaneous" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+						<span class="sr-only"></span>
+						</div>
+					</div>
+					<h4>backertrinkets</h4>
+					<div class="progress">
+						<div id="backertrinkets" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+						<span class="sr-only"></span>
+						</div>
+					</div>
+					<h4>secret</h4>
+					<div class="progress">
+						<div id="secret" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+						<span class="sr-only"></span>
+						</div>
+					</div>
+					<h4>narration</h4>
+					<div class="progress">
+						<div id="narration" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+						<span class="sr-only"></span>
+						</div>
+					</div>
+					<h4>party_names</h4>
+					<div class="progress">
+						<div id="party_names" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+						<span class="sr-only"></span>
+						</div>
+					</div>
+					<h4>monsters</h4>
+					<div class="progress">
+						<div id="monsters" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+						<span class="sr-only"></span>
+						</div>
+					</div>
+					<h4>journal</h4>
+					<div class="progress">
+						<div id="journal" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
 						<span class="sr-only"></span>
 						</div>
 					</div>
