@@ -23,5 +23,5 @@
     "journal.string_table" : "o8lsfd1"
   },
   "json_url" : "https://spreadsheets.google.com/feeds/cells/[key]/[worksheetId]/public/values?alt=json",
-  "version" : "1.3.0.0"
+  "version" : "1.4.0.0"
 }
